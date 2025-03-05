@@ -46,7 +46,7 @@ export class Vehiculo extends BaseEntity {
     anio!: number
 
     @Property({ nullable: false, type: 'text' }) 
-    imagenes!: string[];
+    imagenes?: string[];
 
     @OneToOne(() => Compra, (compra) => compra.vehiculo,{
      mappedBy: 'vehiculo', nullable: true, cascade: [Cascade.REMOVE]  

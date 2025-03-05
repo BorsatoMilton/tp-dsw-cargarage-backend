@@ -156,11 +156,11 @@ async function remove(vehiculoId: string): Promise<void> {
     throw new Error('Vehículo no encontrado');
   }
 
-  const imagePaths = vehiculo.imagenes.map((imageName: string) => 
+  const imagePaths = vehiculo.imagenes?.map((imageName: string) => 
     path.resolve('src/uploads', imageName)
   );
 
-  const unlinkPromises = imagePaths.map((imagePath) => {
+  const unlinkPromises = imagePaths?.map((imagePath) => {
     return new Promise((resolve, reject) => {
       fs.unlink(imagePath, (err) => {
         if (err) {
@@ -173,7 +173,9 @@ async function remove(vehiculoId: string): Promise<void> {
     });
   });
   
-  await Promise.all(unlinkPromises);
+  if (unlinkPromises) {
+    await Promise.all(unlinkPromises);
+  }
   await em.removeAndFlush(vehiculo);
     
   } catch (error) {
