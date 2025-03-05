@@ -197,11 +197,11 @@ async function remove(req: Request, res: Response) {
         if(!vehiculo){
             return res.status(404).json({ message: 'Vehiculo no encontrado' })
         }
-         const imagePaths = vehiculo.imagenes.map((imageName: string) => 
+         const imagePaths = vehiculo.imagenes?.map((imageName: string) => 
             path.resolve('src/uploads', imageName)
           );
         
-          const unlinkPromises = imagePaths.map((imagePath) => {
+          const unlinkPromises = imagePaths?.map((imagePath) => {
             return new Promise((resolve, reject) => {
               fs.unlink(imagePath, (err) => {
                 if (err) {
@@ -214,7 +214,9 @@ async function remove(req: Request, res: Response) {
             });
           });
           
-        await Promise.all(unlinkPromises);
+        if (unlinkPromises) {
+            await Promise.all(unlinkPromises);
+        }
         await em.removeAndFlush(compra);
         await em.removeAndFlush(vehiculo);
         res.status(200).json({ message: 'Compra eliminada' })
