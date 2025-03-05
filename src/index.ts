@@ -23,7 +23,7 @@ import { mercadoPagoRouter } from './components/mercadoPago/mercadopago.routes.j
 
 export const app = express();
 
-const allowedOrigins = ['http://localhost:4200', 'http://localhost:9876' ];
+const allowedOrigins = ['https://cargarage-frontend.netlify.app','http://localhost:4200', 'http://localhost:9876' ];
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
