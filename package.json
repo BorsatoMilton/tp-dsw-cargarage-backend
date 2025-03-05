@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "sistema subastas dsw project",
-  "main": "index.js",
+  "main": "dist/index.js",
   "directories": {
     "doc": "docs"
   },
