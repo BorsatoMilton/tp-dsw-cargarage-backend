@@ -193,7 +193,8 @@ async function remove(req: Request, res: Response) {
         if(!compra){
             return res.status(404).json({ message: 'Compra no encontrada' })
         }
-        const vehiculo = await em.findOne(Vehiculo, { id: compra.vehiculo.id })
+        if(compra.estadoCompra === 'FINALIZADA' || compra.estadoCompra === 'CONFIRMADA'){
+            const vehiculo = await em.findOne(Vehiculo, { id: compra.vehiculo.id })
         if(!vehiculo){
             return res.status(404).json({ message: 'Vehiculo no encontrado' })
         }
@@ -213,12 +214,13 @@ async function remove(req: Request, res: Response) {
               });
             });
           });
-          
-        if (unlinkPromises) {
+            if (unlinkPromises) {
             await Promise.all(unlinkPromises);
+            }
+            await em.removeAndFlush(vehiculo);
         }
         await em.removeAndFlush(compra);
-        await em.removeAndFlush(vehiculo);
+
         res.status(200).json({ message: 'Compra eliminada' })
     } catch (error: any) {
         res.status(500).json({ message: error.message })
