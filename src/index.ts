@@ -44,11 +44,15 @@ const swaggerOptions = {
       contact: {
         name: 'Developer',
       },
-      servers: [{ url: 'http://localhost:3000' }], 
     },
+    servers: [
+      { url: 'http://localhost:3000' },
+      { url: 'https://tp-dsw-cargarage-backend.onrender.com' }
+    ],
   },
   apis: ['./dist/components/**/*.routes.js'], 
 };
+
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 

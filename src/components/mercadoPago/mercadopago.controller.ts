@@ -24,9 +24,10 @@ async function createPreference(req: Request, res: Response) {
                 rentalData: JSON.stringify(rentalData),
             },
             back_urls: {
-                success: 'http://localhost:4200/product/payment-status?payment_status=approved',
-                failure: 'http://localhost:4200/product/payment-status?payment_status=failure',
-                pending: 'http://localhost:4200/product/payment-status?payment_status=pending'
+                success: 'https://cargarage-frontend.netlify.app/product/payment-status?payment_status=approved',
+                failure: 'https://cargarage-frontend.netlify.app/product/payment-status?payment_status=failure',
+                pending: 'https://cargarage-frontend.netlify.app/product/payment_status?payment_status=pending'
+                
             },
             auto_return: 'approved',
         };
