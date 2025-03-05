@@ -1,0 +1,28 @@
+### get all categorias
+GET http://localhost:3000/api/categorias
+
+### get one categoria
+GET http://localhost:3000/api/categorias/6705bb0a70edd32a102eb5f7
+
+### create categoria
+POST http://localhost:3000/api/categorias/
+Content-Type: application/json
+
+{
+    "nombreCategoria": "Automoviles",
+    "descripcionCategoria" : "Rodado mediano"
+}
+
+
+### put categoria
+PUT http://localhost:3000/api/categorias/66904310a5879a5c633b28bc
+Content-Type: application/json
+
+{
+    "nombreCategoria": "Automovil"
+
+}
+
+
+### delete categoria
+DELETE http://localhost:3000/api/categorias/66900479772a039a334a94a1

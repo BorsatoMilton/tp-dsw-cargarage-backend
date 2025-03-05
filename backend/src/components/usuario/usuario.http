@@ -1,0 +1,32 @@
+### get all usuario
+GET http://localhost:3000/api/usuarios 
+
+### get one usuario
+GET http://localhost:3000/api/usuarios/66a26a56c2d60a2b531e553b
+
+### create usuario
+POST http://localhost:3000/api/usuarios/
+Content-Type: application/json
+
+{
+    "usuario": "marchesecrack",
+    "clave": "12345678",
+    "nombre": "Jose",
+    "apellido": "Dayer",
+    "mail": "lalala@gmail.com",
+    "telefono": "3413264072",
+    "direccion": "Calle falsa 123",
+    "rol": "67a648313b881eb76e6f17a3"
+}
+
+
+### put usuario
+PUT http://localhost:3000/api/usuarios/66fd592821f0f4df023497b5
+Content-Type: application/json
+
+{
+    "nombre": "admin"
+}
+
+### delete client
+DELETE http://localhost:3000/api/usuarios/66a292b9167e1190e60640d1

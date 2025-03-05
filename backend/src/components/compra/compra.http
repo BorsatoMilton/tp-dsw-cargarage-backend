@@ -1,0 +1,18 @@
+### get all compras
+GET http://localhost:3000/api/compras
+
+### get one compra
+GET http://localhost:3000/api/pedidos/66902e647185119674495890
+
+### create compra
+POST http://localhost:3000/api/compras/
+Content-Type: application/json
+
+{
+    "usuario": "6758e84958d35a0003e0f1d1",
+    "vehiculo": "675ae3329d939f9932eec290"
+    
+}
+
+### delete pedido
+DELETE http://localhost:3000/api/pedidos/66a41f22a5539ba11d0d8452

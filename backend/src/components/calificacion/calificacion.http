@@ -1,0 +1,30 @@
+### get all calificaciones
+GET http://localhost:3000/api/calificaciones 
+
+### get one calificacion
+GET http://localhost:3000/api/calificaciones/66a28ee01dbd5c9e5aece75b
+
+### create calificacion
+POST http://localhost:3000/api/calificaciones
+Content-Type: application/json
+
+{
+  "fechaCalificacion": "2022-12-07",
+  "valoracion": 5,
+  "observacion": "mal uso",
+  "usuario": "66a26a56c2d60a2b531e553b",
+  "producto" : "66a25eea26cc7f88926de450"
+}
+
+
+### put calificacion
+PUT http://localhost:3000/api/calificaciones/66a28ee01dbd5c9e5aece75b
+Content-Type: application/json
+
+{
+  "valoracion": 7.5,
+  "observacion": "buen uso"
+}
+
+### delete calificacion
+DELETE http://localhost:3000/api/calificaciones/66a29298167e1190e60640d0

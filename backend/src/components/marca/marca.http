@@ -1,0 +1,27 @@
+### get all clients
+GET http://localhost:3000/api/marcas
+
+### get one client
+GET http://localhost:3000/api/marcas/669036a635d36ae88fc3dbf4
+
+### create client
+POST http://localhost:3000/api/marcas/
+Content-Type: application/json
+
+{
+    "nombreMarca": "Peugeot"
+}
+
+
+### put client
+PUT http://localhost:3000/api/marcas/669036a635d36ae88fc3dbf4
+Content-Type: application/json
+
+{
+    "nombreMarca": "Renault"
+
+}
+
+
+### delete client
+DELETE http://localhost:3000/api/marcas/66a25e0726cc7f88926de44c

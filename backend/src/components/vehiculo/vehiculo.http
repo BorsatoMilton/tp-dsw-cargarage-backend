@@ -1,0 +1,47 @@
+### get all vehiculos
+GET http://localhost:3000/api/vehiculos
+
+### get one vehiculo
+GET http://localhost:3000/api/vehiculos/6705bb6a70edd32a102eb5f8
+
+
+### create client
+POST http://localhost:3000/api/vehiculos/
+Content-Type: application/json
+
+{
+    "modelo": "producto 25",
+    "descripcion": "descripcion 25",
+    "fechaAlta": "2023-09-01",
+    "stock": 10,
+    "precioVenta": 100,
+    "anio": "66a25e9b26cc7f88926de44e",
+    "categoria": "66a25ede26cc7f88926de44f",
+    "calificacion": ["66a28ee01dbd5c9e5aece75b"]
+}
+
+
+### put client
+PUT http://localhost:3000/api/productos/66900479772a039a334a94a1
+Content-Type: application/json
+
+{
+    "nombreModelo": "modelo 1 cambio",
+    "descripcion": "descripcion 1 cambio",
+    "productos": []
+   
+
+}
+
+
+### patch client
+PATCH http://localhost:3000/api/productos/66900479772a039a334a94a1
+Content-Type: application/json
+
+{
+    "productos": []
+}
+
+
+### delete client
+DELETE http://localhost:3000/api/productos/66a28a77aee370a376345d9c
