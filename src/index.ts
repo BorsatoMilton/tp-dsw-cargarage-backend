@@ -9,8 +9,6 @@ import { usuarioRouter } from './components/usuario/usuario.routes.js';
 import { calificacionRouter } from './components/calificacion/calificacion.routes.js';
 import { compraRouter } from './components/compra/compra.routes.js';
 import { faqRouter } from './components/faq/faq.routes.js';
-import { verificarToken } from './middleware/authMiddleware.js';
-import { verificarRol } from './middleware/authMiddleware.js';
 import cors from 'cors';
 import { alquilerRouter } from './components/alquiler/alquiler.routes.js';
 import { recuperacionRouter } from './components/reset-password/passwordResetToken.routes.js';
@@ -18,8 +16,13 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
 import path from 'path';
 import './config/cron.timelapse.js';
-
+import dotenv from 'dotenv';
 import { mercadoPagoRouter } from './components/mercadoPago/mercadopago.routes.js';
+
+dotenv.config();
+
+const envFile = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
+dotenv.config({ path: envFile });
 
 export const app = express();
 
@@ -81,6 +84,8 @@ app.use((_, res) => {
   });
 
 const PORT = process.env.PORT || 3000;
+
+console.log('Ejecutando server en tipo: ', process.env.NODE_ENV);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

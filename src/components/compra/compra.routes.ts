@@ -144,7 +144,7 @@ compraRouter.get('/byuser/:userId', verificarToken, findAllByUser);
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.get('/:id', verificarToken ,findOne);
+compraRouter.get('/:id', findOne);
 
 /**
  * @swagger
@@ -244,7 +244,7 @@ compraRouter.post('/avisoCompraExitosa/:mail',verificarToken ,avisoCompraExitosa
 
 /**
  * @swagger
- * /api/compras/confirmarCompraAviso:
+ * /api/compras/confirmarMailCompra:
  *   post:
  *     summary: Confirma una compra
  *     tags: [Compra]
@@ -265,7 +265,7 @@ compraRouter.post('/avisoCompraExitosa/:mail',verificarToken ,avisoCompraExitosa
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.post('/confirmarCompraAviso/:idCompra',verificarToken ,confirmarCompraMail);
+compraRouter.post('/confirmarMailCompra/:idCompra',verificarToken ,confirmarCompraMail);
 
 
 /**
@@ -324,7 +324,7 @@ compraRouter.post('/confirmarCompraAviso/:idCompra',verificarToken ,confirmarCom
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.patch('/confirmarCompra/:idCompra',verificarToken ,confirmarCompra);
+compraRouter.patch('/confirmarCompra/:idCompra' ,confirmarCompra);
 
 /**
  * @swagger

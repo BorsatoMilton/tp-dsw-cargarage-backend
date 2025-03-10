@@ -9,7 +9,7 @@ dotenv.config();
 
 async function recuperarContraseña(token: string, user: Usuario): Promise<{ok: boolean, message: string, info?: string}> {
 
-    const resetLink = `https://cargarage-frontend.netlify.app/auth/reset-password?token=${token}`;
+    const resetLink = `${process.env.CLIENT_URL}/auth/reset-password?token=${token}`;
 
 
     const config = nodemailer.createTransport({
@@ -224,7 +224,7 @@ async function avisoCompraExitosaMail(user: Usuario, vehiculo: Vehiculo): Promis
 
 async function confirmarCompraMailCorreo(compra: Compra): Promise<{ok: boolean, message: string, info?: string}> {
 
-    const confirmLink = `https://cargarage-frontend.netlify.app/product/confirm-purchase?id=${compra.id}`;
+    const confirmLink = `${process.env.CLIENT_URL}/product/confirm-purchase?id=${compra.id}`;
 
     const config = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -287,7 +287,7 @@ async function confirmarCompraMailCorreo(compra: Compra): Promise<{ok: boolean, 
 }
 
 async function confirmRentMail(destinatario: Usuario, alquiler: Alquiler):  Promise<{ok: boolean, message: string, info?: string}> {
-    const confirmLinkRent = `https://cargarage-frontend.netlify.app/product/confirm-rent?id=${alquiler.id}`;
+    const confirmLinkRent = `${process.env.CLIENT_URL}/product/confirm-rent?id=${alquiler.id}`;
 
     const config = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -361,8 +361,8 @@ async function avisoPuntuarAlquiler(locatario: string, locador: string, alquiler
         return;
     }
 
-    const locatarioLink = `https://cargarage-frontend.netlify.app/auth/rate/${locador}/${alquiler.id}`;
-    const locadorLink = `https://cargarage-frontend.netlify.app/auth/rate/${locatario}/${alquiler.id}`;
+    const locatarioLink = `${process.env.CLIENT_URL}/auth/rate/${locador}/${alquiler.id}`;
+    const locadorLink = `${process.env.CLIENT_URL}/auth/rate/${locatario}/${alquiler.id}`;
 
     const config = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -431,8 +431,8 @@ async function avisoPuntuarCompra(comprador: string, vendedor: string, compra: C
         return;
     }
 
-    const compradorLink = `https://cargarage-frontend.netlify.app/auth/rate/${vendedor}/${compra.id}`;
-    const vendedorLink = `https://cargarage-frontend.netlify.app/auth/rate/${comprador}/${compra.id}`;
+    const compradorLink = `${process.env.CLIENT_URL}/auth/rate/${vendedor}/${compra.id}`;
+    const vendedorLink = `${process.env.CLIENT_URL}/auth/rate/${comprador}/${compra.id}`;
 
     const config = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -538,7 +538,7 @@ async function envioMailPropietarioAvisoCorreo(alquiler: Alquiler){
 }
 
 async function envioAvisoParaConfirmarAlquiler(destinatario: Usuario, alquiler: Alquiler): Promise<{ok: boolean, message: string, info?: string}> {
-    const confirmLinkRent = `https://cargarage-frontend.netlify.app/product/confirm-rent?id=${alquiler.id}`;
+    const confirmLinkRent = `${process.env.CLIENT_URL}/product/confirm-rent?id=${alquiler.id}`;
 
 
     const config = nodemailer.createTransport({

@@ -133,7 +133,7 @@ alquilerRouter.get("/",verificarToken, verificarRol('ADMIN') ,findAll);
  *                   example: Detalles del error
  */
  
-alquilerRouter.get("/:id",verificarToken ,findOne);
+alquilerRouter.get("/:id",findOne);
 /**
  * @swagger
  * /api/alquiler/vehiculo/:id:
@@ -304,7 +304,7 @@ alquilerRouter.post("/", verificarToken, sanitizeAlquilerInput, add);
  *                   type: string
  *                   example: Detalles del error
  */ 
-alquilerRouter.post("/confirmarAlquilerMail/:id",verificarToken ,confirmarAlquilerMail); //falta
+alquilerRouter.post("/confirmarAlquilerMail/:id",verificarToken ,confirmarAlquilerMail);
 
 /**
  * @swagger
@@ -346,7 +346,7 @@ alquilerRouter.post("/confirmarAlquilerMail/:id",verificarToken ,confirmarAlquil
  *                   type: string
  *                   example: Detalles del error
  */
-alquilerRouter.patch("/confirmarAlquiler/:id", verificarToken,confirmRent); 
+alquilerRouter.patch("/confirmarAlquiler/:id",confirmRent); 
 /**
  * @swagger
  * /api/alquiler/cancelar/:id:
