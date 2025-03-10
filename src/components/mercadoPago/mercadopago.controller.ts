@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import {  Preference } from 'mercadopago';
 import { mercadoPagoClient } from '../../config/mercadopago.js';
 import { orm } from '../../shared/db/orm.js';
-import { Alquiler } from '../alquiler/alquiler.entity.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const em = orm.em;
 
@@ -24,10 +25,9 @@ async function createPreference(req: Request, res: Response) {
                 rentalData: JSON.stringify(rentalData),
             },
             back_urls: {
-                success: 'https://cargarage-frontend.netlify.app/product/payment-status?payment_status=approved',
-                failure: 'https://cargarage-frontend.netlify.app/product/payment-status?payment_status=failure',
-                pending: 'https://cargarage-frontend.netlify.app/product/payment_status?payment_status=pending'
-                
+                success: `${process.env.CLIENT_URL}/product/payment-status?payment_status=approved`,
+                failure: `${process.env.CLIENT_URL}/product/payment-status?payment_status=failure`,
+                pending: `${process.env.CLIENT_URL}/product/payment-status?payment_status=pending`
             },
             auto_return: 'approved',
         };

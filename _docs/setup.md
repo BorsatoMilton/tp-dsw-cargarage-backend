@@ -14,23 +14,16 @@
 1. Clonar el repositorio del proyecto:
 
     ```bash
-    git clone https://github.com/BorsatoMilton/CarGarage.git
-    cd CarGarage
+    git clone https://github.com/BorsatoMilton/tp-dsw-cargarage-backend.git
+    git clone https://github.com/BorsatoMilton/tp-dsw-cargarage-frontend.git
     ```
 
-2. Instalar las dependencias:
+2. Instalar las dependencias en ambos repositorios:
 
     ```bash
-    cd backend
     npm install
     ```
 
-Luego navegar a la carpeta del frontend
-
-    ```bash
-    cd frontend
-    npm install
-    ```
 
 ## Configuración de Mercado Pago
 
@@ -68,6 +61,13 @@ En el archivo enviroments.ts del frontend colocar la public_key otorgada por mer
         SECRET_KEY_WEBTOKEN=tu_clave
     ```
 
+## Configuracion de entornos extras
+1. Crear las variables
+URL_MONGO_DB= tu_url_de_base_de_datos
+NODE_ENV= development (desarrollo) o production (en caso de usar en ambos ambientes, recomendable crear otro .env.production con las mismas variables)
+CLIENT_URL= tu_url_del_cliente
+
+
 ## Carpeta UPLOADS
 
 1. Colocarse en la carpeta SRC del backend
@@ -77,13 +77,13 @@ En el archivo enviroments.ts del frontend colocar la public_key otorgada por mer
 
 1. Iniciar el servidor:
 
-CARPETA BACKEND
+REPOSITORIO BACKEND
 
     ```bash
     npm run start:dev 
     ```
 
-CARPETA FRONTEND
+REPOSITORIO FRONTEND
 
     ```bash
     ng serve
