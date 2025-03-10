@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { findAll, findOne, add, remove, sanitizeCompraInput, findOneByVehiculo, confirmarCompraMail ,cancelarCompra, avisoCompraExitosa, findAllByUser, confirmarCompra } from "./compra.controler.js";
+import { findAll, findOne, add, remove, sanitizeCompraInput, findOneByVehiculo, confirmarCompraMail ,cancelarCompra, avisoCompraExitosa, findAllByUser, confirmarCompra } from "./compra.controller.js";
 import { verificarRol, verificarToken } from "../../middleware/authMiddleware.js";
 
 

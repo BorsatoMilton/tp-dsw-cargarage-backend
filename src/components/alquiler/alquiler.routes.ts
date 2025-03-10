@@ -10,7 +10,7 @@ import {
   cancelRent,
   confirmarAlquilerMail,
   confirmRent,
-} from "./alquiler.controler.js";
+} from "./alquiler.controller.js";
 import { verificarRol, verificarToken } from "../../middleware/authMiddleware.js";
 
 export const alquilerRouter = Router();

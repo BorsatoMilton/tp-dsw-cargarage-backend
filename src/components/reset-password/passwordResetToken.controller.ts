@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { orm } from '../../shared/db/orm.js'
 import { PasswordResetToken } from '../reset-password/passwordResetToken.entity.js'
-import { findOneByEmail } from '../usuario/usuario.controler.js'
+import { findOneByEmail } from '../usuario/usuario.controller.js'
 import { generateToken } from '../../shared/db/tokenGenerator.js'
 import { recuperarContraseña } from '../correo/correo.controller.js'
 

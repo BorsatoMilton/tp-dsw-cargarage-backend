@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { sanitizeVehiculoInput, findAll, findOne, add, update, remove, logicRemove, findAllByUser, findAllByCategory } from './vehiculo.controler.js';
+import { sanitizeVehiculoInput, findAll, findOne, add, update, remove, logicRemove, findAllByUser, findAllByCategory } from './vehiculo.controller.js';
 import upload from '../../config/multer.upload.images.js';
 import { verificarToken } from '../../middleware/authMiddleware.js';
 

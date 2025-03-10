@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import {findAllByUser, findOne, add, findOneByObjectAndUser, sanitizeCalificacionInput} from './calificacion.controler.js';
+import {findAllByUser, findOne, add, findOneByObjectAndUser, sanitizeCalificacionInput} from './calificacion.controller.js';
 import { verificarToken } from '../../middleware/authMiddleware.js';
 
 export const calificacionRouter = Router();

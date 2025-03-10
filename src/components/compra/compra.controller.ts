@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Compra } from "./compra.entity.js";
 import { orm } from "../../shared/db/orm.js";
-import { findOneByEmail } from "../usuario/usuario.controler.js";
+import { findOneByEmail } from "../usuario/usuario.controller.js";
 import { avisoCompraExitosaMail} from "../correo/correo.controller.js";
 import { Vehiculo } from "../vehiculo/vehiculo.entity.js";
 import { confirmarCompraMailCorreo } from "../correo/correo.controller.js";

@@ -13,7 +13,7 @@ import {
   login, 
   resetPassword,
   validatePassword
-} from "./usuario.controler.js";
+} from "./usuario.controller.js";
 import { verificarRol, verificarToken } from "../../middleware/authMiddleware.js";
 
 export const usuarioRouter = Router();

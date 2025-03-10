@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { sanitizeModeloInput, findAll, findOne, add, update, remove, findOneByName } from './categoria.controler.js';
+import { sanitizeModeloInput, findAll, findOne, add, update, remove, findOneByName } from './categoria.controller.js';
 import { verificarRol, verificarToken } from '../../middleware/authMiddleware.js';
 
 export const categoriaRouter = Router();

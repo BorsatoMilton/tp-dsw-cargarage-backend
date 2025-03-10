@@ -4,7 +4,7 @@ import { orm } from "../shared/db/orm.js";
 import { avisoPuntuarAlquiler, avisoPuntuarCompra, envioAvisoParaConfirmarAlquiler } from "../components/correo/correo.controller.js";
 import { Compra } from "../components/compra/compra.entity.js";
 import { Vehiculo } from "../components/vehiculo/vehiculo.entity.js";
-import { remove } from "../components/vehiculo/vehiculo.controler.js";
+import { remove } from "../components/vehiculo/vehiculo.controller.js";
 
 
 cron.schedule("*/30 * * * *", async () => {
