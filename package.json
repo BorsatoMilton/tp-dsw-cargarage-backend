@@ -13,7 +13,7 @@
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --forceExit",
     "test:coverage": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "test:watch": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --watch",
-    "install-build": "NODE_ENV=production npm install && NODE_ENV=production npm run build"
+    "install-build": "cross-env NODE_ENV=production npm install && cross-env NODE_ENV=production npm run build"
   },
   "author": "borsatoMilton, dayerJose, arachMateo, marcheseValentin",
   "license": "ISC",
