@@ -31,7 +31,7 @@ async function findOne(req: Request, res: Response) {
   try {
     const id = req.params.id;
     const categoria = await em.findOne(Categoria, { id });
-    if(!categoria){
+    if (!categoria) {
       return res.status(404).json({ message: "Categoria no encontrada" });
     }
     res.status(200).json(categoria);
@@ -55,7 +55,7 @@ async function findOneByName(req: Request, res: Response) {
     }
 
     const categoria = await em.findOne(Categoria, query);
-    if(!categoria){
+    if (!categoria) {
       return res.status(200).json(null);
     }
     res.status(200).json(categoria);
@@ -66,7 +66,8 @@ async function findOneByName(req: Request, res: Response) {
 
 async function add(req: Request, res: Response) {
   try {
-    req.body.sanitizedInput.nombreCategoria = req.body.sanitizedInput.nombreCategoria.toUpperCase();
+    req.body.sanitizedInput.nombreCategoria =
+      req.body.sanitizedInput.nombreCategoria.toUpperCase();
     const categoriaExistente = await em.findOne(Categoria, {
       nombreCategoria: req.body.sanitizedInput.nombreCategoria,
     });
@@ -85,7 +86,8 @@ async function add(req: Request, res: Response) {
 async function update(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    req.body.sanitizedInput.nombreCategoria = req.body.sanitizedInput.nombreCategoria.toUpperCase();
+    req.body.sanitizedInput.nombreCategoria =
+      req.body.sanitizedInput.nombreCategoria.toUpperCase();
     const categoria = await em.findOne(Categoria, { id });
     if (!categoria) {
       return res.status(404).json({ message: "Categoria no encontrada" });
@@ -102,7 +104,11 @@ async function update(req: Request, res: Response) {
 async function remove(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    const categoria = await em.findOne(Categoria, { id: id }, {populate: ['vehiculos']});
+    const categoria = await em.findOne(
+      Categoria,
+      { id: id },
+      { populate: ["vehiculos"] }
+    );
     if (!categoria) {
       res.status(404).json({ message: "Categoria no encontrada" });
     } else {

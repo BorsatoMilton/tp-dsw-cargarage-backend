@@ -1,6 +1,17 @@
-import { Router } from 'express';
-import { sanitizeModeloInput, findAll, findOne, add, update, remove, findOneByName } from './marca.controller.js';
-import { verificarRol, verificarToken } from '../../middleware/authMiddleware.js';
+import { Router } from "express";
+import {
+  sanitizeModeloInput,
+  findAll,
+  findOne,
+  add,
+  update,
+  remove,
+  findOneByName,
+} from "./marca.controller.js";
+import {
+  verificarRol,
+  verificarToken,
+} from "../../middleware/authMiddleware.js";
 
 export const marcaRouter = Router();
 
@@ -50,7 +61,7 @@ export const marcaRouter = Router();
  *                   type: string
  *                   example: Detalles del error
  */
-marcaRouter.get('/', findAll);
+marcaRouter.get("/", findAll);
 
 /**
  * @swagger
@@ -96,7 +107,7 @@ marcaRouter.get('/', findAll);
  *                   type: string
  *                   example: Detalles del error
  */
-marcaRouter.get('/:id', verificarToken, verificarRol('ADMIN'),findOne); //NO SE USA CREO
+marcaRouter.get("/:id", verificarToken, verificarRol("ADMIN"), findOne); //NO SE USA CREO
 
 /**
  * @swagger
@@ -142,7 +153,12 @@ marcaRouter.get('/:id', verificarToken, verificarRol('ADMIN'),findOne); //NO SE 
  *                   type: string
  *                   example: Detalles del error
  */
-marcaRouter.get('/byname/:name', verificarToken, verificarRol('ADMIN'), findOneByName);
+marcaRouter.get(
+  "/byname/:name",
+  verificarToken,
+  verificarRol("ADMIN"),
+  findOneByName
+);
 
 /**
  * @swagger
@@ -187,7 +203,13 @@ marcaRouter.get('/byname/:name', verificarToken, verificarRol('ADMIN'), findOneB
  *                   type: string
  *                   example: Detalles del error
  */
-marcaRouter.post('/', verificarToken, verificarRol('ADMIN'),sanitizeModeloInput, add);
+marcaRouter.post(
+  "/",
+  verificarToken,
+  verificarRol("ADMIN"),
+  sanitizeModeloInput,
+  add
+);
 
 /**
  * @swagger
@@ -239,7 +261,13 @@ marcaRouter.post('/', verificarToken, verificarRol('ADMIN'),sanitizeModeloInput,
  *                   type: string
  *                   example: Detalles del error
  */
-marcaRouter.put('/:id', verificarToken, verificarRol('ADMIN'), sanitizeModeloInput, update);
+marcaRouter.put(
+  "/:id",
+  verificarToken,
+  verificarRol("ADMIN"),
+  sanitizeModeloInput,
+  update
+);
 
 /**
  * @swagger
@@ -289,4 +317,4 @@ marcaRouter.put('/:id', verificarToken, verificarRol('ADMIN'), sanitizeModeloInp
  *                   type: string
  *                   example: Detalles del error
  */
-marcaRouter.delete('/:id', verificarToken, verificarRol('ADMIN'), remove);
+marcaRouter.delete("/:id", verificarToken, verificarRol("ADMIN"), remove);

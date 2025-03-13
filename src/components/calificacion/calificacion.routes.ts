@@ -1,6 +1,12 @@
-import {Router} from 'express';
-import {findAllByUser, findOne, add, findOneByObjectAndUser, sanitizeCalificacionInput} from './calificacion.controller.js';
-import { verificarToken } from '../../middleware/authMiddleware.js';
+import { Router } from "express";
+import {
+  findAllByUser,
+  findOne,
+  add,
+  findOneByObjectAndUser,
+  sanitizeCalificacionInput,
+} from "./calificacion.controller.js";
+import { verificarToken } from "../../middleware/authMiddleware.js";
 
 export const calificacionRouter = Router();
 
@@ -66,12 +72,12 @@ export const calificacionRouter = Router();
  *                     $ref: '#/components/schemas/Calificacion'
  *       500:
  *         description: Error interno del servidor
- *         message: 
+ *         message:
  *              type: string
  *              example: Error al obtener las calificaciones
  */
 
-calificacionRouter.get('/:idUsuario',verificarToken, findAllByUser);
+calificacionRouter.get("/:idUsuario", verificarToken, findAllByUser);
 
 /**
  * @swagger
@@ -102,7 +108,11 @@ calificacionRouter.get('/:idUsuario',verificarToken, findAllByUser);
  *       500:
  *         description: Error interno del servidor
  */
-calificacionRouter.get('/:userId/:objectId',verificarToken ,findOneByObjectAndUser);
+calificacionRouter.get(
+  "/:userId/:objectId",
+  verificarToken,
+  findOneByObjectAndUser
+);
 
 /**
  * @swagger
@@ -141,4 +151,4 @@ calificacionRouter.get('/:userId/:objectId',verificarToken ,findOneByObjectAndUs
  *              example: Error al crear la calificación
  */
 
-calificacionRouter.post('/', verificarToken ,sanitizeCalificacionInput, add);
+calificacionRouter.post("/", verificarToken, sanitizeCalificacionInput, add);

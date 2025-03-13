@@ -1,19 +1,17 @@
 import supertest from "supertest";
 import { app } from "../src/index";
-import { Usuario } from '../src/components/usuario/usuario.entity';
-import { orm } from '../src/shared/db/orm';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-
+import { Usuario } from "../src/components/usuario/usuario.entity";
+import { orm } from "../src/shared/db/orm";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const api = supertest(app);
 
-
 test("Check username and mail", async () => {
-    const username = 'testuser1';
-    const mail = 'testingg@gmail.com'
-    const response = await api.get(`/api/usuarios/${username}/${mail}`)
-    expect(response.body).toBe(null);
+  const username = "testuser1";
+  const mail = "testingg@gmail.com";
+  const response = await api.get(`/api/usuarios/${username}/${mail}`);
+  expect(response.body).toBe(null);
 });
 
 /*
@@ -32,46 +30,46 @@ Time:        3.841 s, estimated 4 s
 */
 
 beforeAll(async () => {
-    const em = orm.em.fork();
-    const otrosCampos = {
-      usuario: 'testuser',
-      nombre: 'Test',
-      apellido: 'User',
-      mail: 'test@example.com',
-      clave: 'password', 
-      direccion: '123 Test St',
-      telefono: '1234567890',
-      rol: 'ADMIN' 
-    }
+  const em = orm.em.fork();
+  const otrosCampos = {
+    usuario: "testuser",
+    nombre: "Test",
+    apellido: "User",
+    mail: "test@example.com",
+    clave: "password",
+    direccion: "123 Test St",
+    telefono: "1234567890",
+    rol: "ADMIN",
+  };
 
-    const hashedPassword = await bcrypt.hash('password', 10);
-    const user = em.create(Usuario, {
-      ...otrosCampos,
-      clave: hashedPassword
-    });
-    
-    await em.persistAndFlush(user);
-    })
+  const hashedPassword = await bcrypt.hash("password", 10);
+  const user = em.create(Usuario, {
+    ...otrosCampos,
+    clave: hashedPassword,
+  });
 
-    afterAll(async () => {
-        const em = orm.em.fork();
-        await em.nativeDelete(Usuario, { usuario: 'testuser' });
-        await orm.close();
-    });
+  await em.persistAndFlush(user);
+});
 
-test ("Check username and mail", async () => {
-    const username = 'testuser';
-    const mail = 'lalalala@gmail.com'
-    const response = await api.get(`/api/usuarios/${username}/${mail}`)
-    expect(response.body).toMatchObject({
-        usuario: 'testuser',
-        nombre: 'Test',
-        apellido: 'User',
-        mail: 'test@example.com',
-        direccion: '123 Test St',
-        telefono: '1234567890',
-        rol: 'ADMIN' 
-    });
+afterAll(async () => {
+  const em = orm.em.fork();
+  await em.nativeDelete(Usuario, { usuario: "testuser" });
+  await orm.close();
+});
+
+test("Check username and mail", async () => {
+  const username = "testuser";
+  const mail = "lalalala@gmail.com";
+  const response = await api.get(`/api/usuarios/${username}/${mail}`);
+  expect(response.body).toMatchObject({
+    usuario: "testuser",
+    nombre: "Test",
+    apellido: "User",
+    mail: "test@example.com",
+    direccion: "123 Test St",
+    telefono: "1234567890",
+    rol: "ADMIN",
+  });
 });
 
 /*
@@ -98,7 +96,6 @@ Snapshots:   0 total
 Time:        3.833 s, estimated 4 s
 
 */
-
 
 /* CUANDO EXISTE
   console.log

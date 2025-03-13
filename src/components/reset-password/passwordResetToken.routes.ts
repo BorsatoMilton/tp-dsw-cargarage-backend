@@ -1,8 +1,7 @@
-import { Router } from 'express';
-import { addToken, validateToken } from './passwordResetToken.controller.js';
+import { Router } from "express";
+import { addToken, validateToken } from "./passwordResetToken.controller.js";
 
 export const recuperacionRouter = Router();
-
 
 /**
  * @swagger
@@ -86,7 +85,7 @@ export const recuperacionRouter = Router();
  *                   type: string
  *                   description: Detalles del error
  */
-recuperacionRouter.post('/', addToken);
+recuperacionRouter.post("/", addToken);
 
 /**
  * @swagger
@@ -108,7 +107,7 @@ recuperacionRouter.post('/', addToken);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/ValidateTokenResponse'
-*       400:
+ *       400:
  *         description: Token expirado
  *         content:
  *           application/json:
@@ -121,5 +120,4 @@ recuperacionRouter.post('/', addToken);
  *             schema:
  *               $ref: '#/components/schemas/ValidateTokenResponse'
  */
-recuperacionRouter.get('/validate/:token', validateToken);
-
+recuperacionRouter.get("/validate/:token", validateToken);

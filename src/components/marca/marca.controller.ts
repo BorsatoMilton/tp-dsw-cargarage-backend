@@ -30,8 +30,8 @@ async function findOne(req: Request, res: Response) {
   try {
     const id = req.params.id;
     const marca = await em.findOne(Marca, { id });
-    if(!marca){
-      return res.status(404).json({ message: 'Marca no encontrada' });
+    if (!marca) {
+      return res.status(404).json({ message: "Marca no encontrada" });
     }
     res.status(200).json(marca);
   } catch (error: any) {
@@ -41,13 +41,13 @@ async function findOne(req: Request, res: Response) {
 
 async function findOneByName(req: Request, res: Response) {
   try {
-    const nombre = req.params.name.toUpperCase(); 
+    const nombre = req.params.name.toUpperCase();
     const excludeBrandId = req.query.excludeBrandId;
 
     const query: any = {};
 
     if (nombre) {
-      query.nombreMarca = nombre; 
+      query.nombreMarca = nombre;
     }
     if (excludeBrandId) {
       query._id = { $ne: excludeBrandId };
@@ -66,8 +66,9 @@ async function findOneByName(req: Request, res: Response) {
 
 async function add(req: Request, res: Response) {
   try {
-      req.body.sanitizedInput.nombreMarca = req.body.sanitizedInput.nombreMarca.toUpperCase();
-      const marcaExistente = await em.findOne(Marca, {
+    req.body.sanitizedInput.nombreMarca =
+      req.body.sanitizedInput.nombreMarca.toUpperCase();
+    const marcaExistente = await em.findOne(Marca, {
       nombreMarca: req.body.sanitizedInput.nombreMarca,
     });
     if (marcaExistente) {
@@ -85,7 +86,8 @@ async function add(req: Request, res: Response) {
 async function update(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    req.body.sanitizedInput.nombreMarca = req.body.sanitizedInput.nombreMarca.toUpperCase();
+    req.body.sanitizedInput.nombreMarca =
+      req.body.sanitizedInput.nombreMarca.toUpperCase();
     const marcaAactualizar = await em.findOne(Marca, { id });
     if (!marcaAactualizar) {
       return res.status(404).json({ message: "Marca no encontrada" });
@@ -104,7 +106,9 @@ async function update(req: Request, res: Response) {
 async function remove(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    const marcaAeliminar = await em.findOne(Marca, id, { populate: ['vehiculos'] });
+    const marcaAeliminar = await em.findOne(Marca, id, {
+      populate: ["vehiculos"],
+    });
     if (!marcaAeliminar) {
       return res.status(404).json({ message: "Marca no encontrada" });
     }

@@ -1,6 +1,17 @@
-import { Router } from 'express';
-import { sanitizeModeloInput, findAll, findOne, add, update, remove, findOneByName } from './categoria.controller.js';
-import { verificarRol, verificarToken } from '../../middleware/authMiddleware.js';
+import { Router } from "express";
+import {
+  sanitizeModeloInput,
+  findAll,
+  findOne,
+  add,
+  update,
+  remove,
+  findOneByName,
+} from "./categoria.controller.js";
+import {
+  verificarRol,
+  verificarToken,
+} from "../../middleware/authMiddleware.js";
 
 export const categoriaRouter = Router();
 
@@ -54,7 +65,7 @@ export const categoriaRouter = Router();
  *                   type: string
  *                   example: Detalles del error
  */
-categoriaRouter.get('/', findAll);
+categoriaRouter.get("/", findAll);
 
 /**
  * @swagger
@@ -100,7 +111,7 @@ categoriaRouter.get('/', findAll);
  *                   type: string
  *                   example: Detalles del error
  */
-categoriaRouter.get('/:id', verificarToken, verificarRol('ADMIN'), findOne); //NO SE USA CREO
+categoriaRouter.get("/:id", verificarToken, verificarRol("ADMIN"), findOne); //NO SE USA CREO
 
 /**
  * @swagger
@@ -146,7 +157,12 @@ categoriaRouter.get('/:id', verificarToken, verificarRol('ADMIN'), findOne); //N
  *                   type: string
  *                   example: Detalles del error
  */
-categoriaRouter.get('/byname/:name', verificarToken, verificarRol('ADMIN'),findOneByName);
+categoriaRouter.get(
+  "/byname/:name",
+  verificarToken,
+  verificarRol("ADMIN"),
+  findOneByName
+);
 
 /**
  * @swagger
@@ -198,7 +214,13 @@ categoriaRouter.get('/byname/:name', verificarToken, verificarRol('ADMIN'),findO
  *                   type: string
  *                   example: Detalles del error
  */
-categoriaRouter.post('/', verificarToken, verificarRol('ADMIN'), sanitizeModeloInput, add);
+categoriaRouter.post(
+  "/",
+  verificarToken,
+  verificarRol("ADMIN"),
+  sanitizeModeloInput,
+  add
+);
 
 /**
  * @swagger
@@ -250,7 +272,13 @@ categoriaRouter.post('/', verificarToken, verificarRol('ADMIN'), sanitizeModeloI
  *                   type: string
  *                   example: Detalles del error
  */
-categoriaRouter.put('/:id', verificarToken, verificarRol('ADMIN'), sanitizeModeloInput, update);
+categoriaRouter.put(
+  "/:id",
+  verificarToken,
+  verificarRol("ADMIN"),
+  sanitizeModeloInput,
+  update
+);
 
 /**
  * @swagger
@@ -300,4 +328,4 @@ categoriaRouter.put('/:id', verificarToken, verificarRol('ADMIN'), sanitizeModel
  *                   type: string
  *                   example: Detalles del error
  */
-categoriaRouter.delete('/:id', verificarToken, verificarRol('ADMIN'), remove);
+categoriaRouter.delete("/:id", verificarToken, verificarRol("ADMIN"), remove);

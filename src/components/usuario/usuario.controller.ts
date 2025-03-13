@@ -7,7 +7,7 @@ import { Vehiculo } from "../vehiculo/vehiculo.entity.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
 
 const em = orm.em;
 
@@ -26,7 +26,10 @@ function sanitizeUsuarioInput(req: Request, res: Response, next: NextFunction) {
   };
 
   Object.keys(req.body.sanitizedInput).forEach((key) => {
-    if (req.body.sanitizedInput[key] === undefined || req.body.sanitizedInput[key] === null) {
+    if (
+      req.body.sanitizedInput[key] === undefined ||
+      req.body.sanitizedInput[key] === null
+    ) {
       delete req.body.sanitizedInput[key];
     }
   });
@@ -35,7 +38,11 @@ function sanitizeUsuarioInput(req: Request, res: Response, next: NextFunction) {
 
 async function findAll(req: Request, res: Response) {
   try {
-    const usuarios = await em.find(Usuario, {}, { populate: ['vehiculos.compra', 'compras', 'alquilerLocatario'] });
+    const usuarios = await em.find(
+      Usuario,
+      {},
+      { populate: ["vehiculos.compra", "compras", "alquilerLocatario"] }
+    );
     res.status(200).json(usuarios);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
@@ -44,18 +51,17 @@ async function findAll(req: Request, res: Response) {
 
 async function findOneByEmailOrUsername(req: Request, res: Response) {
   try {
-    const { user, mail } = req.params; 
-    const excludeUserId = req.query.excludeUserId; 
+    const { user, mail } = req.params;
+    const excludeUserId = req.query.excludeUserId;
 
     const query: any = { $or: [] };
 
     if (user) query.$or.push({ usuario: user });
     if (mail) query.$or.push({ mail: mail });
-    if (excludeUserId) query._id = { $ne: excludeUserId }; 
+    if (excludeUserId) query._id = { $ne: excludeUserId };
 
-    const usuarioEncontrado = await em.findOne(Usuario, query );
+    const usuarioEncontrado = await em.findOne(Usuario, query);
 
-  
     if (!usuarioEncontrado) {
       return res.status(200).json(null);
     }
@@ -69,10 +75,7 @@ async function findOneByEmailOrUsername(req: Request, res: Response) {
 async function findOneByEmailDestinatario(req: Request, res: Response) {
   try {
     const mail = req.params.mail;
-    const usuarioEncontrado = await em.findOneOrFail(
-      Usuario,
-      { mail }
-    );
+    const usuarioEncontrado = await em.findOneOrFail(Usuario, { mail });
     if (!usuarioEncontrado) {
       return res.status(409).json({ message: "Usuario no encontrado" });
     }
@@ -85,10 +88,7 @@ async function findOneByEmailDestinatario(req: Request, res: Response) {
 async function findOneById(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    const usuario = await em.findOneOrFail(
-      Usuario,
-      { id }
-    );
+    const usuario = await em.findOneOrFail(Usuario, { id });
     if (!usuario) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
@@ -99,10 +99,7 @@ async function findOneById(req: Request, res: Response) {
 }
 
 async function findOneByEmail(email: string) {
-  const usuario = await em.findOne(
-    Usuario,
-    { mail: email }
-  );    
+  const usuario = await em.findOne(Usuario, { mail: email });
   try {
     return usuario;
   } catch (error: any) {
@@ -113,10 +110,7 @@ async function findOneByEmail(email: string) {
 async function findOneByUser(req: Request, res: Response) {
   try {
     const user = req.params.user;
-    const usuario = await em.findOne(
-      Usuario,
-      { usuario: user }
-    );
+    const usuario = await em.findOne(Usuario, { usuario: user });
     if (!usuario) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     } else {
@@ -131,10 +125,7 @@ async function login(req: Request, res: Response) {
   try {
     const usuario = req.body.user;
     const clave = req.body.password;
-    const usuarioEncontrado = await em.findOne(
-      Usuario,
-      { usuario: usuario }
-    );
+    const usuarioEncontrado = await em.findOne(Usuario, { usuario: usuario });
 
     if (!usuarioEncontrado) {
       return res.status(404).json({ message: "Usuario no encontrado" });
@@ -144,9 +135,9 @@ async function login(req: Request, res: Response) {
         return res.status(401).json({ message: "Contraseña incorrecta" });
       }
       const token = jwt.sign(
-        { id: usuarioEncontrado.id, rol: usuarioEncontrado.rol }, 
-        process.env.SECRET_KEY_WEBTOKEN!, 
-        { expiresIn: '1h' } 
+        { id: usuarioEncontrado.id, rol: usuarioEncontrado.rol },
+        process.env.SECRET_KEY_WEBTOKEN!,
+        { expiresIn: "1h" }
       );
 
       res.status(200).json({ user: usuarioEncontrado, token: token });
@@ -159,7 +150,7 @@ async function login(req: Request, res: Response) {
 async function validatePassword(req: Request, res: Response) {
   try {
     const userId = req.params.id;
-    const currentPassword = req.body.password
+    const currentPassword = req.body.password;
     const usuario = await em.findOne(Usuario, { id: userId });
     if (!usuario) {
       return res.status(404).json({ message: "Usuario no encontrado" });
@@ -172,7 +163,6 @@ async function validatePassword(req: Request, res: Response) {
   }
 }
 
-
 async function validateToken(req: Request, res: Response) {
   try {
     const token = req.params.token;
@@ -183,8 +173,7 @@ async function validateToken(req: Request, res: Response) {
         .json({ ok: false, message: "Token inválido o expirado" });
     }
     return res.status(200).json({ ok: true, message: "Token válido" });
-  }
-  catch (error: any) {
+  } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
 }
@@ -229,23 +218,27 @@ async function add(req: Request, res: Response) {
     if (usuarioExistente) {
       return res.status(409).json({ message: "El usuario ya existe" });
     }
-    if(req.body.sanitizedInput.clave.length >= 6){
+    if (req.body.sanitizedInput.clave.length >= 6) {
       const vecesHash = 10;
-    const hashClave = await bcrypt.hash(req.body.sanitizedInput.clave, vecesHash);
+      const hashClave = await bcrypt.hash(
+        req.body.sanitizedInput.clave,
+        vecesHash
+      );
 
-    const usuario = em.create(Usuario, {
-      ...req.body.sanitizedInput,
-      clave: hashClave,
-    });
+      const usuario = em.create(Usuario, {
+        ...req.body.sanitizedInput,
+        clave: hashClave,
+      });
 
-    await em.flush();
+      await em.flush();
 
-    const usuarioData = { ...usuario, clave: undefined };
-    res.status(201).json({ message: "Usuario creado", data: usuarioData });
-    }else{
-      res.status(400).json({ message: "La contraseña debe tener al menos 6 caracteres" });
+      const usuarioData = { ...usuario, clave: undefined };
+      res.status(201).json({ message: "Usuario creado", data: usuarioData });
+    } else {
+      res
+        .status(400)
+        .json({ message: "La contraseña debe tener al menos 6 caracteres" });
     }
-    
   } catch (error: any) {
     console.error(error);
     res.status(500).json({ message: error.message });
@@ -259,10 +252,15 @@ async function update(req: Request, res: Response) {
     if (!usuarioAactualizar) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     } else {
-      if(req.body.sanitizedInput.clave){
-        return res.status(400).json({ message: "No se puede modificar la contraseña desde update" });
+      if (req.body.sanitizedInput.clave) {
+        return res
+          .status(400)
+          .json({
+            message: "No se puede modificar la contraseña desde update",
+          });
       }
-      const usuario = { ...req.body.sanitizedInput, 
+      const usuario = {
+        ...req.body.sanitizedInput,
         telefono: req.body.sanitizedInput.telefono.toString(),
       };
 
@@ -274,8 +272,8 @@ async function update(req: Request, res: Response) {
         .json({ message: "Usuario Actualizado", data: usuarioAactualizar });
     }
   } catch (error: any) {
-    console.error('Error detallado:', error);
-    res.status(500).json({ message: error.message || 'Error desconocido' });
+    console.error("Error detallado:", error);
+    res.status(500).json({ message: error.message || "Error desconocido" });
   }
 }
 
@@ -287,7 +285,10 @@ async function resetPasswordWithoutToken(req: Request, res: Response) {
     if (newPassword.length < 6) {
       return res
         .status(400)
-        .json({ ok: false, message: "La contraseña debe tener al menos 6 caracteres" });
+        .json({
+          ok: false,
+          message: "La contraseña debe tener al menos 6 caracteres",
+        });
     }
 
     const usuario = await orm.em.findOne(Usuario, { id });
@@ -315,7 +316,10 @@ async function resetPassword(req: Request, res: Response) {
     if (newPassword.length < 6) {
       return res
         .status(400)
-        .json({ ok: false, message: "La contraseña debe tener al menos 6 caracteres" });
+        .json({
+          ok: false,
+          message: "La contraseña debe tener al menos 6 caracteres",
+        });
     }
     const tokenEntity = await orm.em.findOne(PasswordResetToken, { token });
     if (!tokenEntity || tokenEntity.expiryDate < new Date()) {
@@ -346,7 +350,11 @@ async function resetPassword(req: Request, res: Response) {
 async function remove(req: Request, res: Response) {
   try {
     const id = req.params.id;
-    const usuario = await em.findOne(Usuario, { id: id }, { populate: ['calificacionesUsuario', 'compras', 'alquilerLocatario'] });
+    const usuario = await em.findOne(
+      Usuario,
+      { id: id },
+      { populate: ["calificacionesUsuario", "compras", "alquilerLocatario"] }
+    );
     if (!usuario) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     } else {
@@ -359,17 +367,13 @@ async function remove(req: Request, res: Response) {
   }
 }
 
-
-async function vehiclesUsersLogicRemove(usuario:Usuario): Promise<void>{
+async function vehiclesUsersLogicRemove(usuario: Usuario): Promise<void> {
   const vehiculos = await em.find(Vehiculo, { propietario: usuario.id });
   for (const vehiculo of vehiculos) {
     vehiculo.fechaBaja = new Date();
     await em.persistAndFlush(vehiculo);
   }
 }
-
-
-
 
 export {
   sanitizeUsuarioInput,

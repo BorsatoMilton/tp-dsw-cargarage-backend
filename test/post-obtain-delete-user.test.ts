@@ -1,40 +1,40 @@
-import request from 'supertest';
-import { app } from '../src/index.js';
-import { orm } from '../src/shared/db/orm.js';
-import { Usuario } from '../src/components/usuario/usuario.entity.js';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import request from "supertest";
+import { app } from "../src/index.js";
+import { orm } from "../src/shared/db/orm.js";
+import { Usuario } from "../src/components/usuario/usuario.entity.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-describe('GET /api/usuarios/:id', () => {
+describe("GET /api/usuarios/:id", () => {
   let userId: string;
   let authToken: string;
 
   beforeAll(async () => {
     const em = orm.em.fork();
     const otrosCampos = {
-      usuario: 'testuser',
-      nombre: 'Test',
-      apellido: 'User',
-      mail: 'test@example.com',
-      clave: 'password', 
-      direccion: '123 Test St',
-      telefono: '1234567890',
-      rol: 'ADMIN' 
-    }
+      usuario: "testuser",
+      nombre: "Test",
+      apellido: "User",
+      mail: "test@example.com",
+      clave: "password",
+      direccion: "123 Test St",
+      telefono: "1234567890",
+      rol: "ADMIN",
+    };
 
-    const hashedPassword = await bcrypt.hash('password', 10);
+    const hashedPassword = await bcrypt.hash("password", 10);
     const user = em.create(Usuario, {
       ...otrosCampos,
-      clave: hashedPassword
+      clave: hashedPassword,
     });
-    
+
     await em.persistAndFlush(user);
     userId = user.id;
 
     authToken = jwt.sign(
       { userId: user.id, rol: user.rol },
-      process.env.SECRET_KEY_WEBTOKEN!, 
-      { expiresIn: '1h' }
+      process.env.SECRET_KEY_WEBTOKEN!,
+      { expiresIn: "1h" }
     );
   });
 
@@ -44,21 +44,20 @@ describe('GET /api/usuarios/:id', () => {
     await orm.close();
   });
 
-  test('Datos del usuario', async () => {
+  test("Datos del usuario", async () => {
     const response = await request(app)
       .get(`/api/usuarios/${userId}`)
-      .set('Authorization', `Bearer ${authToken}`)
+      .set("Authorization", `Bearer ${authToken}`)
       .expect(200);
 
     expect(response.body).toMatchObject({
-      usuario: 'testuser',
-      nombre: 'Test',
-      apellido: 'User',
-      mail: 'test@example.com'
+      usuario: "testuser",
+      nombre: "Test",
+      apellido: "User",
+      mail: "test@example.com",
     });
   });
 });
-
 
 /*
 RESULTADO (realizado con Jest y Supertest)

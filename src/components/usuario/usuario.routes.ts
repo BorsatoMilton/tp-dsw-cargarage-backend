@@ -1,20 +1,23 @@
 import { Router } from "express";
-import { 
-  findAll, 
-  findOneById, 
-  findOneByEmailOrUsername, 
-  checkUsername, 
-  checkEmail, 
-  add, 
-  update, 
-  resetPasswordWithoutToken, 
-  remove, 
-  sanitizeUsuarioInput, 
-  login, 
+import {
+  findAll,
+  findOneById,
+  findOneByEmailOrUsername,
+  checkUsername,
+  checkEmail,
+  add,
+  update,
+  resetPasswordWithoutToken,
+  remove,
+  sanitizeUsuarioInput,
+  login,
   resetPassword,
-  validatePassword
+  validatePassword,
 } from "./usuario.controller.js";
-import { verificarRol, verificarToken } from "../../middleware/authMiddleware.js";
+import {
+  verificarRol,
+  verificarToken,
+} from "../../middleware/authMiddleware.js";
 
 export const usuarioRouter = Router();
 
@@ -92,7 +95,7 @@ export const usuarioRouter = Router();
  *                   type: string
  *                   example: Detalles del error
  */
-usuarioRouter.get("/",verificarToken, verificarRol('ADMIN') ,findAll);
+usuarioRouter.get("/", verificarToken, verificarRol("ADMIN"), findAll);
 
 // Endpoint GET /:id
 /**
@@ -139,7 +142,7 @@ usuarioRouter.get("/",verificarToken, verificarRol('ADMIN') ,findAll);
  *                   type: string
  *                   example: Detalles del error
  */
-usuarioRouter.get("/:id",verificarToken ,findOneById);
+usuarioRouter.get("/:id", verificarToken, findOneById);
 
 /**
  * @swagger
@@ -179,8 +182,7 @@ usuarioRouter.get("/:id",verificarToken ,findOneById);
  *                   type: string
  *                   example: Detalles del error
  */
-usuarioRouter.get("/checkusername/:username",verificarToken ,checkUsername);
-
+usuarioRouter.get("/checkusername/:username", verificarToken, checkUsername);
 
 /**
  * @swagger
@@ -220,8 +222,7 @@ usuarioRouter.get("/checkusername/:username",verificarToken ,checkUsername);
  *                   type: string
  *                   example: Detalles del error
  */
-usuarioRouter.get("/checkemail/:email",verificarToken ,checkEmail);
-
+usuarioRouter.get("/checkemail/:email", verificarToken, checkEmail);
 
 // Endpoint GET /:user/:mail
 /**
@@ -347,7 +348,7 @@ usuarioRouter.get("/:user/:mail", findOneByEmailOrUsername);
  *                   type: string
  *                   description: Mensaje de error
  */
-usuarioRouter.post("/reset", resetPassword)
+usuarioRouter.post("/reset", resetPassword);
 
 /**
  * @swagger
@@ -460,8 +461,7 @@ usuarioRouter.post("/login", login);
  */
 usuarioRouter.post("/", sanitizeUsuarioInput, add);
 
-
-/** 
+/**
  * @swagger
  * /api/usuarios/validate/:id:
  *   post:
@@ -513,8 +513,8 @@ usuarioRouter.post("/", sanitizeUsuarioInput, add);
  *                 message:
  *                   type: string
  *                   description: Mensaje de error
-*/
-usuarioRouter.post("/validate/:id", verificarToken ,validatePassword)
+ */
+usuarioRouter.post("/validate/:id", verificarToken, validatePassword);
 
 /**
  * @swagger
@@ -571,7 +571,7 @@ usuarioRouter.post("/validate/:id", verificarToken ,validatePassword)
  *                   type: string
  *                   example: Detalles del error
  */
-usuarioRouter.put("/:id", verificarToken,sanitizeUsuarioInput, update);
+usuarioRouter.put("/:id", verificarToken, sanitizeUsuarioInput, update);
 
 /**
  * @swagger
@@ -620,7 +620,12 @@ usuarioRouter.put("/:id", verificarToken,sanitizeUsuarioInput, update);
  *                   type: string
  *                   example: Error al actualizar la contraseña
  */
-usuarioRouter.patch("/:id", verificarToken,sanitizeUsuarioInput, resetPasswordWithoutToken);
+usuarioRouter.patch(
+  "/:id",
+  verificarToken,
+  sanitizeUsuarioInput,
+  resetPasswordWithoutToken
+);
 
 /**
  * @swagger
@@ -662,5 +667,5 @@ usuarioRouter.patch("/:id", verificarToken,sanitizeUsuarioInput, resetPasswordWi
  *                 message:
  *                   type: string
  *                   example: Error al eliminar el usuario
-*/
-usuarioRouter.delete("/:id", verificarToken, verificarRol('ADMIN'),remove);
+ */
+usuarioRouter.delete("/:id", verificarToken, verificarRol("ADMIN"), remove);

@@ -1,78 +1,76 @@
 import supertest from "supertest";
 import { app } from "../src/index";
-import { Usuario } from '../src/components/usuario/usuario.entity';
-import { orm } from '../src/shared/db/orm';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-
-
+import { Usuario } from "../src/components/usuario/usuario.entity";
+import { orm } from "../src/shared/db/orm";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const api = supertest(app);
 
-describe('GET /api/usuarios/:id', () => {
-    let userId: string;
-    let authToken: string;
+describe("GET /api/usuarios/:id", () => {
+  let userId: string;
+  let authToken: string;
 
-beforeAll(async () => {
+  beforeAll(async () => {
     const em = orm.em.fork();
     const otrosCampos = {
-      usuario: 'testuser',
-      nombre: 'Test',
-      apellido: 'User',
-      mail: 'test@example.com',
-      clave: 'password', 
-      direccion: '123 Test St',
-      telefono: '1234567890',
-      rol: 'ADMIN' 
-    }
+      usuario: "testuser",
+      nombre: "Test",
+      apellido: "User",
+      mail: "test@example.com",
+      clave: "password",
+      direccion: "123 Test St",
+      telefono: "1234567890",
+      rol: "ADMIN",
+    };
 
-    const hashedPassword = await bcrypt.hash('password', 10);
+    const hashedPassword = await bcrypt.hash("password", 10);
     const user = em.create(Usuario, {
       ...otrosCampos,
-      clave: hashedPassword
+      clave: hashedPassword,
     });
-    
+
     await em.persistAndFlush(user);
 
     userId = user.id;
 
     authToken = jwt.sign(
-    { userId: user.id, rol: user.rol },
-    process.env.SECRET_KEY_WEBTOKEN!, 
-    { expiresIn: '1h' }
+      { userId: user.id, rol: user.rol },
+      process.env.SECRET_KEY_WEBTOKEN!,
+      { expiresIn: "1h" }
     );
-    })
+  });
 
-    afterAll(async () => {
-        const em = orm.em.fork();
-        await em.nativeDelete(Usuario, { usuario: 'testuser' });
-        await orm.close();
-    });
+  afterAll(async () => {
+    const em = orm.em.fork();
+    await em.nativeDelete(Usuario, { usuario: "testuser" });
+    await orm.close();
+  });
 
-    
-    test("Baja lógica publicación | vehículo (No autorizado)", async () => {
-        const id = '1';
-        const response = await api.patch(`/api/vehiculos/${id}`)
-        .expect(401)
-        console.log(response.body)
-    });
+  test("Baja lógica publicación | vehículo (No autorizado)", async () => {
+    const id = "1";
+    const response = await api.patch(`/api/vehiculos/${id}`).expect(401);
+    console.log(response.body);
+  });
 
+  test("Baja lógica publicación | vehículo (No existe)", async () => {
+    const id = "1";
+    const response = await api
+      .patch(`/api/vehiculos/${id}`)
+      .set("Authorization", `Bearer ${authToken}`)
+      .expect(404);
+    console.log(response.body);
+  });
 
-    test("Baja lógica publicación | vehículo (No existe)", async () => {
-        const id = '1';
-        const response = await api.patch(`/api/vehiculos/${id}`).set('Authorization', `Bearer ${authToken}`)
-        .expect(404)
-        console.log(response.body)
-    });
-
-    
-    test("Baja lógica publicación | vehículo (Lo elimina)", async () => {
-        const id = '67c34dc68dbb2ff768d39ad2';
-        const response = await api.patch(`/api/vehiculos/${id}`).set('Authorization', `Bearer ${authToken}`)
-        .expect(200)
-        console.log(response.body)
-    });
-})
+  test("Baja lógica publicación | vehículo (Lo elimina)", async () => {
+    const id = "67c34dc68dbb2ff768d39ad2";
+    const response = await api
+      .patch(`/api/vehiculos/${id}`)
+      .set("Authorization", `Bearer ${authToken}`)
+      .expect(200);
+    console.log(response.body);
+  });
+});
 
 /*
 [query] db.getCollection('usuario').insertMany([ { usuario: 'testuser', clave: '$2b$10$gKykEKUa7dvpI0NpiKITbeRP7a5zqs0vj6VXhf4s0rCjw3ium/ynm', nombre: 'Test', apellido: 'User', mail: 'test@example.com', direccion: '123 Test St', telefono: '1234567890', rol: 'ADMIN' } ], {}); [took 5 ms]
@@ -143,4 +141,3 @@ Tests:       3 passed, 3 total
 Snapshots:   0 total
 Time:        4.234 s
 */
-

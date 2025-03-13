@@ -1,7 +1,17 @@
-import { Router } from 'express';
-import { sanitizeVehiculoInput, findAll, findOne, add, update, remove, logicRemove, findAllByUser, findAllByCategory } from './vehiculo.controller.js';
-import upload from '../../config/multer.upload.images.js';
-import { verificarToken } from '../../middleware/authMiddleware.js';
+import { Router } from "express";
+import {
+  sanitizeVehiculoInput,
+  findAll,
+  findOne,
+  add,
+  update,
+  remove,
+  logicRemove,
+  findAllByUser,
+  findAllByCategory,
+} from "./vehiculo.controller.js";
+import upload from "../../config/multer.upload.images.js";
+import { verificarToken } from "../../middleware/authMiddleware.js";
 
 export const vehiculoRouter = Router();
 
@@ -97,7 +107,7 @@ export const vehiculoRouter = Router();
  *                   type: string
  *                   example: Error al obtener los vehículos
  */
-vehiculoRouter.get('/', findAll);
+vehiculoRouter.get("/", findAll);
 
 /**
  * @swagger
@@ -140,7 +150,7 @@ vehiculoRouter.get('/', findAll);
  *                   type: string
  *                   example: Error al obtener el vehículo
  */
-vehiculoRouter.get('/:id', verificarToken,findOne);
+vehiculoRouter.get("/:id", verificarToken, findOne);
 
 /**
  * @swagger
@@ -175,7 +185,7 @@ vehiculoRouter.get('/:id', verificarToken,findOne);
  *                   type: string
  *                   example: Error al obtener los vehículos por usuario
  */
-vehiculoRouter.get('/user/:id', verificarToken,findAllByUser);
+vehiculoRouter.get("/user/:id", verificarToken, findAllByUser);
 
 /**
  * @swagger
@@ -210,7 +220,7 @@ vehiculoRouter.get('/user/:id', verificarToken,findAllByUser);
  *                   type: string
  *                   example: Error al obtener los vehículos por categoría
  */
-vehiculoRouter.get('/categoria/:id', verificarToken,findAllByCategory);
+vehiculoRouter.get("/categoria/:id", verificarToken, findAllByCategory);
 
 /**
  * @swagger
@@ -287,7 +297,13 @@ vehiculoRouter.get('/categoria/:id', verificarToken,findAllByCategory);
  *                   type: string
  *                   example: Error al crear el vehículo
  */
-vehiculoRouter.post('/', upload.array('imagenes', 10),verificarToken ,sanitizeVehiculoInput, add);
+vehiculoRouter.post(
+  "/",
+  upload.array("imagenes", 10),
+  verificarToken,
+  sanitizeVehiculoInput,
+  add
+);
 
 /**
  * @swagger
@@ -336,7 +352,7 @@ vehiculoRouter.post('/', upload.array('imagenes', 10),verificarToken ,sanitizeVe
  *                   type: string
  *                   example: Error al actualizar el vehículo
  */
-vehiculoRouter.put('/:id', verificarToken,sanitizeVehiculoInput, update);
+vehiculoRouter.put("/:id", verificarToken, sanitizeVehiculoInput, update);
 
 /**
  * @swagger
@@ -385,7 +401,7 @@ vehiculoRouter.put('/:id', verificarToken,sanitizeVehiculoInput, update);
  *                   type: string
  *                   example: Error al dar de baja el vehículo
  */
-vehiculoRouter.patch('/:id', verificarToken,logicRemove);
+vehiculoRouter.patch("/:id", verificarToken, logicRemove);
 
 /**
  * @swagger
@@ -432,4 +448,4 @@ vehiculoRouter.patch('/:id', verificarToken,logicRemove);
  *                   type: string
  *                   example: Error al eliminar el vehículo
  */
-vehiculoRouter.delete('/:id', verificarToken,remove);
+vehiculoRouter.delete("/:id", verificarToken, remove);

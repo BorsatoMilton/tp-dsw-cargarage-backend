@@ -1,57 +1,55 @@
 import supertest from "supertest";
 import { app } from "../src/index";
 
-
 const api = supertest(app);
 
-
 test("Usuario inexistente", async () => {
-    const usuario ={
-        user: 'pepito',
-        password: '1234'
-    }
-    const response = await api.post(`/api/usuarios/login`)
+  const usuario = {
+    user: "pepito",
+    password: "1234",
+  };
+  const response = await api
+    .post(`/api/usuarios/login`)
     .send(usuario)
-    .expect(404)
+    .expect(404);
 
-    console.log(response.body)
+  console.log(response.body);
 });
-
 
 test("Contraseña incorrecta", async () => {
-    const usuario ={
-        user: 'admin',
-        password: '1234'
-    }
-    const response = await api.post(`/api/usuarios/login`)
+  const usuario = {
+    user: "admin",
+    password: "1234",
+  };
+  const response = await api
+    .post(`/api/usuarios/login`)
     .send(usuario)
-    .expect(401)
-    console.log(response.body)
+    .expect(401);
+  console.log(response.body);
 });
-
 
 test("Todo OK", async () => {
-    const usuario ={
-        user: 'admin',
-        password: '123456'
-    }
-    const response = await api.post(`/api/usuarios/login`)
+  const usuario = {
+    user: "admin",
+    password: "123456",
+  };
+  const response = await api
+    .post(`/api/usuarios/login`)
     .send(usuario)
-    .expect(200)
-    console.log(response.body)
+    .expect(200);
+  console.log(response.body);
 });
-
 
 test("Error del server por falta de atributos", async () => {
-    const usuario ={
-        user: 'admin',
-    }
-    const response = await api.post(`/api/usuarios/login`)
+  const usuario = {
+    user: "admin",
+  };
+  const response = await api
+    .post(`/api/usuarios/login`)
     .send(usuario)
-    .expect(500)
-    console.log(response.body)
+    .expect(500);
+  console.log(response.body);
 });
-
 
 /*
 console.log

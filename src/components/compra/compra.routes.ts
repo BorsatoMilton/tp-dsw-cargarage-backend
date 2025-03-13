@@ -1,7 +1,21 @@
 import { Router } from "express";
-import { findAll, findOne, add, remove, sanitizeCompraInput, findOneByVehiculo, confirmarCompraMail ,cancelarCompra, avisoCompraExitosa, findAllByUser, confirmarCompra } from "./compra.controller.js";
-import { verificarRol, verificarToken } from "../../middleware/authMiddleware.js";
-
+import {
+  findAll,
+  findOne,
+  add,
+  remove,
+  sanitizeCompraInput,
+  findOneByVehiculo,
+  confirmarCompraMail,
+  cancelarCompra,
+  avisoCompraExitosa,
+  findAllByUser,
+  confirmarCompra,
+} from "./compra.controller.js";
+import {
+  verificarRol,
+  verificarToken,
+} from "../../middleware/authMiddleware.js";
 
 export const compraRouter = Router();
 
@@ -68,7 +82,7 @@ export const compraRouter = Router();
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.get('/', verificarToken, verificarRol('ADMIN'), findAll);
+compraRouter.get("/", verificarToken, verificarRol("ADMIN"), findAll);
 
 /**
  * @swagger
@@ -106,7 +120,7 @@ compraRouter.get('/', verificarToken, verificarRol('ADMIN'), findAll);
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.get('/byuser/:userId', verificarToken, findAllByUser);
+compraRouter.get("/byuser/:userId", verificarToken, findAllByUser);
 
 /**
  * @swagger
@@ -144,7 +158,7 @@ compraRouter.get('/byuser/:userId', verificarToken, findAllByUser);
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.get('/:id', findOne);
+compraRouter.get("/:id", findOne);
 
 /**
  * @swagger
@@ -180,7 +194,7 @@ compraRouter.get('/:id', findOne);
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.get('/byvehiculo/:idVehiculo',verificarToken ,findOneByVehiculo);
+compraRouter.get("/byvehiculo/:idVehiculo", verificarToken, findOneByVehiculo);
 
 /**
  * @swagger
@@ -215,7 +229,7 @@ compraRouter.get('/byvehiculo/:idVehiculo',verificarToken ,findOneByVehiculo);
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.post('/', verificarToken ,sanitizeCompraInput, add);
+compraRouter.post("/", verificarToken, sanitizeCompraInput, add);
 
 /**
  * @swagger
@@ -240,7 +254,11 @@ compraRouter.post('/', verificarToken ,sanitizeCompraInput, add);
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.post('/avisoCompraExitosa/:mail',verificarToken ,avisoCompraExitosa);
+compraRouter.post(
+  "/avisoCompraExitosa/:mail",
+  verificarToken,
+  avisoCompraExitosa
+);
 
 /**
  * @swagger
@@ -265,8 +283,11 @@ compraRouter.post('/avisoCompraExitosa/:mail',verificarToken ,avisoCompraExitosa
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.post('/confirmarMailCompra/:idCompra',verificarToken ,confirmarCompraMail);
-
+compraRouter.post(
+  "/confirmarMailCompra/:idCompra",
+  verificarToken,
+  confirmarCompraMail
+);
 
 /**
  * @swagger
@@ -297,7 +318,7 @@ compraRouter.post('/confirmarMailCompra/:idCompra',verificarToken ,confirmarComp
  *                 message:
  *                   type: string
  *                   example: El id de la compra es requerido
- *                 data: 
+ *                 data:
  *                  type: object
  *                 example: {Compra}
  *       404:
@@ -324,7 +345,7 @@ compraRouter.post('/confirmarMailCompra/:idCompra',verificarToken ,confirmarComp
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.patch('/confirmarCompra/:idCompra' ,confirmarCompra);
+compraRouter.patch("/confirmarCompra/:idCompra", confirmarCompra);
 
 /**
  * @swagger
@@ -355,7 +376,7 @@ compraRouter.patch('/confirmarCompra/:idCompra' ,confirmarCompra);
  *                 message:
  *                   type: string
  *                   example: El id de la compra es requerido
- *                 data: 
+ *                 data:
  *                  type: object
  *                 example: {Compra}
  *       404:
@@ -382,7 +403,7 @@ compraRouter.patch('/confirmarCompra/:idCompra' ,confirmarCompra);
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.patch('/cancelarCompra/:id', verificarToken ,cancelarCompra);
+compraRouter.patch("/cancelarCompra/:id", verificarToken, cancelarCompra);
 
 /**
  * @swagger
@@ -424,4 +445,4 @@ compraRouter.patch('/cancelarCompra/:id', verificarToken ,cancelarCompra);
  *                   type: string
  *                   example: Detalles del error
  */
-compraRouter.delete('/:id', verificarToken,remove);
+compraRouter.delete("/:id", verificarToken, remove);

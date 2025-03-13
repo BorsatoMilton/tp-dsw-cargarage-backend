@@ -1,9 +1,17 @@
 import { Router } from "express";
-import { findAllFaq, addFAQ, updateFAQ, deleteFAQ, sanitizeFaqInput } from "./faq.controller.js";
-import { verificarRol, verificarToken } from "../../middleware/authMiddleware.js";
+import {
+  findAllFaq,
+  addFAQ,
+  updateFAQ,
+  deleteFAQ,
+  sanitizeFaqInput,
+} from "./faq.controller.js";
+import {
+  verificarRol,
+  verificarToken,
+} from "../../middleware/authMiddleware.js";
 
 export const faqRouter = Router();
-
 
 /**
  * @swagger
@@ -94,7 +102,13 @@ faqRouter.get("/", findAllFaq);
  *                   type: string
  *                   example: Detalles del error
  */
-faqRouter.post("/",verificarToken,verificarRol('ADMIN') ,sanitizeFaqInput, addFAQ);
+faqRouter.post(
+  "/",
+  verificarToken,
+  verificarRol("ADMIN"),
+  sanitizeFaqInput,
+  addFAQ
+);
 
 /**
  * @swagger
@@ -136,7 +150,13 @@ faqRouter.post("/",verificarToken,verificarRol('ADMIN') ,sanitizeFaqInput, addFA
  *                   type: string
  *                   example: Detalles del error
  */
-faqRouter.put("/:id",verificarToken,verificarRol('ADMIN') , sanitizeFaqInput, updateFAQ);
+faqRouter.put(
+  "/:id",
+  verificarToken,
+  verificarRol("ADMIN"),
+  sanitizeFaqInput,
+  updateFAQ
+);
 
 /**
  * @swagger
@@ -168,4 +188,4 @@ faqRouter.put("/:id",verificarToken,verificarRol('ADMIN') , sanitizeFaqInput, up
  *                   type: string
  *                   example: Detalles del error
  */
-faqRouter.delete("/:id", verificarToken, verificarRol('ADMIN'), deleteFAQ);
+faqRouter.delete("/:id", verificarToken, verificarRol("ADMIN"), deleteFAQ);

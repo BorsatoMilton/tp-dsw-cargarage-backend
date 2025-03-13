@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import { createPreference } from './mercadopago.controller.js';
-import { mercadoPagoWebhook } from '../webhooks/webhook.controller.js';
-import { verificarToken } from '../../middleware/authMiddleware.js';
+import { Router } from "express";
+import { createPreference } from "./mercadopago.controller.js";
+import { mercadoPagoWebhook } from "../webhooks/webhook.controller.js";
+import { verificarToken } from "../../middleware/authMiddleware.js";
 
 export const mercadoPagoRouter = Router();
 
@@ -78,7 +78,7 @@ export const mercadoPagoRouter = Router();
  *                   type: string
  *                   example: Internal server error
  */
-mercadoPagoRouter.post('/create-preference' ,createPreference)
+mercadoPagoRouter.post("/create-preference", createPreference);
 
 /**
  * @swagger
@@ -135,5 +135,5 @@ mercadoPagoRouter.post('/create-preference' ,createPreference)
  *                 message:
  *                   type: string
  *                   example: Internal server error
- */
-mercadoPagoRouter.post('/webhook', mercadoPagoWebhook)
+ */
+mercadoPagoRouter.post("/webhook", mercadoPagoWebhook);
