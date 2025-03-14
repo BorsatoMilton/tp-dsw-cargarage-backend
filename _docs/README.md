@@ -2,6 +2,7 @@
 
 Documentación de la API REST de CarGarage.
 Cátedra: Desarrollo de Software
+<hr>
 Profesores: Meca Adrian | Tabacman Ricardo
 Año cursado: 2024
 
